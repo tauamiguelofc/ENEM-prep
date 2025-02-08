@@ -3,33 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste de Velocidade da Rede</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Curso de Matemática</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <h1>Matemática</h1>
+        <button id="themeToggle">🌙</button>
+    </header>
+
     <div class="container">
-        <h1>Teste de Velocidade da Rede</h1>
-        <div class="info">
-            <div class="item">
-                <h2>Download</h2>
-                <p id="download-speed">0 Mbps</p>
+        <aside class="sidebar">
+            <h3>Conteúdos</h3>
+            <ul>
+                <li onclick="carregarAula('raizes')">Raízes</li>
+                <li onclick="carregarAula('equacoes')">Equações</li>
+                <li onclick="carregarAula('algebra')">Álgebra</li>
+                <li onclick="carregarAula('somas')">Somas</li>
+            </ul>
+        </aside>
+
+        <main class="aula-container">
+            <h2 id="titulo-aula">Selecione um conteúdo</h2>
+            <iframe id="video-aula" src="" frameborder="0" allowfullscreen></iframe>
+            <p id="descricao-aula">Clique em um tópico para carregar o conteúdo.</p>
+            <a id="baixar-material" href="#" class="btn">Baixar Material</a>
+
+            <div class="comentarios">
+                <div id="disqus_thread"></div>
+                <div class="reclame-aqui">
+                    <h3>Reclame Aqui</h3>
+                    <form id="reclameForm">
+                        <input type="text" id="nome" placeholder="Seu Nome" required>
+                        <textarea id="mensagem" placeholder="Digite sua reclamação" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
             </div>
-            <div class="item">
-                <h2>Upload</h2>
-                <p id="upload-speed">0 Mbps</p>
-            </div>
-            <div class="item">
-                <h2>Ping</h2>
-                <p id="ping">0 ms</p>
-            </div>
-            <div class="item">
-                <h2>Informações de Rede</h2>
-                <p id="network-info">Aguardando...</p>
-            </div>
-        </div>
-        <button onclick="startTest()">Iniciar Teste</button>
+        </main>
     </div>
 
+    <footer>
+        <p>&copy; 2025 - Todos os direitos reservados.</p>
+    </footer>
+
     <script src="script.js"></script>
+    <script>
+        var disqus_config = function () {
+            this.page.url = window.location.href;
+            this.page.identifier = "index";
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://enem-prep.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
 </body>
 </html>
