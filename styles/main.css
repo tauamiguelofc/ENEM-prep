@@ -1,32 +1,10 @@
 /* ======= RESET GERAL ======= */
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, Arial, sans-serif; }
 
-/* ===== VARIÁVEIS DE COR ===== */
-:root{
-  --bg: #f4f6f8;
-  --text: #111827;
-  --muted:#6b7280;
-  --primary:#0b69ff;
-  --accent:#0073e6;
-  --card:#ffffff;
-  --sidebar:#2f3136;
-  --shadow: 0 6px 18px rgba(2,6,23,0.08);
-  --transition-fast: 180ms ease;
-  --transition-medium: 300ms ease;
-}
-
-.dark-mode{
-  --bg:#0f1720;
-  --text:#e6eef8;
-  --muted:#9aa6b2;
-  --card:#0b1220;
-  --sidebar:#111316;
-}
-
 /* ===== LAYOUT GLOBAL ===== */
 .video-wrapper, .sidebar, body, .main, .topbar { transition: background-color var(--transition-medium), color var(--transition-medium); }
 html,body { height:100%; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-.topbar { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; background:linear-gradient(90deg, rgba(7,54,113,0.06), transparent); border-bottom:1px solid rgba(0,0,0,0.04);}
+.topbar { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; background:linear-gradient(90deg, rgba(7,54,113,0.06), transparent); border-bottom:1px solid rgba(0,0,0,0.04);} 
 .brand h1 { font-size:20px; }
 .brand .tag { font-size:12px; color:var(--muted); }
 
@@ -40,7 +18,7 @@ html,body { height:100%; background:var(--bg); color:var(--text); -webkit-font-s
 .sidebar nav ul { list-style:none; }
 .sidebar nav li { margin-bottom:6px; }
 .sidebar nav button { width:100%; text-align:left; padding:10px; border-radius:8px; background:transparent; border:0; color:#e6eef8; cursor:pointer; }
-.sidebar nav button:hover{ background:rgba(255,255,255,0.04); }
+.sidebar nav button:hover, .sidebar nav button:focus{ background:rgba(255,255,255,0.04); outline:none; }
 
 /* Reclame Aqui */
 .reclame-aqui{ margin-top:16px; background:rgba(255,255,255,0.03); padding:12px; border-radius:8px; }
@@ -61,6 +39,13 @@ html,body { height:100%; background:var(--bg); color:var(--text); -webkit-font-s
 .play-overlay{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:48px; color:rgba(255,255,255,0.95); background:linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.44)); border:0; cursor:pointer; transition:opacity var(--transition-fast); }
 .play-overlay[aria-hidden="true"]{ display:none; }
 .play-overlay:focus{ outline:3px solid rgba(11,105,255,0.28); }
+
+/* ===== TOASTS ===== */
+#toastContainer{ position:fixed; right:18px; bottom:18px; z-index:9999; display:flex; flex-direction:column; gap:8px; }
+.toast{ min-width:260px; padding:12px 14px; border-radius:8px; color:#fff; background:rgba(0,0,0,0.75); box-shadow:var(--shadow); animation:toast-in .18s ease; }
+.toast.success{ background:linear-gradient(90deg,#1db954,#0b8f3e); }
+.toast.error{ background:linear-gradient(90deg,#ff5e5e,#d64545); }
+@keyframes toast-in{ from{ transform:translateY(8px); opacity:0 } to{ transform:none; opacity:1 } }
 
 /* ===== BOTÕES ===== */
 .btn { display:inline-block; padding:10px 14px; background:var(--primary); color:#fff; border-radius:8px; text-decoration:none; margin-top:12px; }

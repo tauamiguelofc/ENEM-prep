@@ -1,0 +1,26 @@
+{
+  "raizes": {
+    "titulo": "Raízes Quadradas",
+    "video": "https://www.youtube.com/embed/-X5zHFi7MIg",
+    "descricao": "Revisão de raízes quadradas, propriedades, exercícios e dicas de resolução.",
+    "tags": ["Aritmética", "Fundamentos"]
+  },
+  "equacoes": {
+    "titulo": "Equações",
+    "video": "",
+    "descricao": "Equações do 1º e 2º grau: resolução, formação e problemas aplicados.",
+    "tags": ["Álgebra", "Equações"]
+  },
+  "algebra": {
+    "titulo": "Álgebra",
+    "video": "",
+    "descricao": "Fundamentos de álgebra: expressões, identidades e manipulações algébricas.",
+    "tags": ["Álgebra"]
+  },
+  "somas": {
+    "titulo": "Somas e Sequências",
+    "video": "",
+    "descricao": "Somas, progressões aritméticas e geométricas e aplicações em problemas.",
+    "tags": ["Progressões", "Somas"]
+  }
+}

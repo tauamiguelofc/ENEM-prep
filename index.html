@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Curso de Matemática — Preparação para Vestibular</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
     <header class="topbar">
@@ -14,7 +15,7 @@
         </div>
 
         <div class="top-actions">
-            <button id="menuToggle" class="icon-btn" aria-label="Alternar menu">☰</button>
+            <button id="menuToggle" class="icon-btn" aria-label="Alternar menu" aria-expanded="false">☰</button>
             <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">🌙</button>
         </div>
     </header>
@@ -22,11 +23,8 @@
     <aside class="sidebar" id="sidebar" aria-hidden="false">
         <h3>Conteúdos</h3>
         <nav>
-            <ul>
-                <li><button onclick="carregarAula('raizes')">Raízes Quadradas</button></li>
-                <li><button onclick="carregarAula('equacoes')">Equações</button></li>
-                <li><button onclick="carregarAula('algebra')">Álgebra</button></li>
-                <li><button onclick="carregarAula('somas')">Somas</button></li>
+            <ul id="aulasList" role="menu">
+                <!-- preenchido dinamicamente por js -->
             </ul>
         </nav>
 
@@ -46,7 +44,9 @@
             <h2 id="titulo-aula">Selecione um conteúdo</h2>
 
             <div class="video-wrapper" aria-hidden="true">
-                <iframe id="video-aula" src="" title="Player de vídeo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <!-- iframe src será definido apenas quando o usuário escolher e/ou clicar em Play (lazy-load) -->
+                <iframe id="video-aula" src="" title="Player de vídeo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen aria-label="Player de vídeo"></iframe>
+                <button class="play-overlay" id="playOverlay" aria-hidden="true" aria-pressed="false" aria-label="Reproduzir aula" title="Reproduzir aula" tabindex="0">▶</button>
             </div>
 
             <p id="descricao-aula" class="descricao">Clique em um tópico na lateral para carregar a aula.</p>
@@ -55,10 +55,12 @@
         </section>
     </main>
 
+    <div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
     <footer class="footer">
         <p>&copy; 2025 ENEM Prep — Conteúdo para estudo. Hospedado no GitHub Pages.</p>
     </footer>
 
-    <script src="script.js" defer></script>
+    <script type="module" src="js/app.js" defer></script>
 </body>
 </html>

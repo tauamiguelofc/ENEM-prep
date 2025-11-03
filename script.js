@@ -10,27 +10,31 @@
     const baixar = document.getElementById('baixar-material');
     const form = document.getElementById('reclameForm');
     const listaEl = document.getElementById('listaReclamacoes');
+    const playOverlay = document.getElementById('playOverlay');
 
     // Dados das aulas (IDs genéricos do YouTube ou links embed)
+    // Dados das aulas. Vídeos opcionais — se não houver vídeo configurado, o overlay abre busca no YouTube.
     const aulas = {
         raizes: {
             titulo: 'Raízes Quadradas',
+            // Exemplo de embed (pode ser substituído por data/aulas.json no futuro)
             video: 'https://www.youtube.com/embed/-X5zHFi7MIg',
             descricao: 'Revisão de raízes quadradas, propriedades, exercícios e dicas de resolução.'
         },
         equacoes: {
             titulo: 'Equações',
-            video: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            // vídeo não configurado — abre busca como fallback
+            video: '',
             descricao: 'Equações do 1º e 2º grau: resolução, formação e problemas aplicados.'
         },
         algebra: {
             titulo: 'Álgebra',
-            video: 'https://www.youtube.com/embed/3GwjfUFyY6M',
+            video: '',
             descricao: 'Fundamentos de álgebra: expressões, identidades e manipulações algébricas.'
         },
         somas: {
             titulo: 'Somas e Sequências',
-            video: 'https://www.youtube.com/embed/oHg5SJYRHA0',
+            video: '',
             descricao: 'Somas, progressões aritméticas e geométricas e aplicações em problemas.'
         }
     };
@@ -40,8 +44,13 @@
         if (theme === 'dark') document.documentElement.classList.add('dark-mode');
         else document.documentElement.classList.remove('dark-mode');
     }
-    const savedTheme = localStorage.getItem('site-theme') || 'light';
-    applyTheme(savedTheme);
+    // Detecta preferência do sistema se o usuário ainda não tiver uma escolha salva
+    const savedTheme = localStorage.getItem('site-theme');
+    if (savedTheme) applyTheme(savedTheme);
+    else {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(prefersDark ? 'dark' : 'light');
+    }
 
     themeToggle.addEventListener('click', () => {
         const isDark = document.documentElement.classList.toggle('dark-mode');
@@ -53,22 +62,70 @@
 
     // Menu móvel
     menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('open');
+        const open = sidebar.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Fechar sidebar com ESC (acessibilidade)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') sidebar.classList.remove('open');
     });
 
     // Carregar aula (função exposta globalmente para chamadas onclick)
+    // Carregar aula: definimos o data-src e mostramos overlay para lazy-load do iframe.
     window.carregarAula = function (key) {
         const data = aulas[key];
         if (!data) return;
         titulo.innerText = data.titulo;
         descricao.innerText = data.descricao;
-        // usa sempre link embed
-        video.src = data.video + '?rel=0&modestbranding=1';
-        document.querySelector('.video-wrapper').setAttribute('aria-hidden', 'false');
+        // config de download
         baixar.href = `materiais/${key}.pdf`;
+        // configurar iframe de forma lazy: guardamos a url em data-src e removemos src atual
+        if (data.video) {
+            video.removeAttribute('src');
+            video.dataset.src = data.video + '?rel=0&modestbranding=1';
+            video.title = `Player de vídeo — ${data.titulo}`;
+            // mostrar overlay para o usuário clicar e ativar autoplay/iframe
+            if (playOverlay) {
+                playOverlay.setAttribute('aria-hidden', 'false');
+                playOverlay.setAttribute('aria-pressed', 'false');
+            }
+        } else {
+            // fallback: não há vídeo configurado — o overlay abrirá busca no YouTube
+            video.removeAttribute('src');
+            delete video.dataset.src;
+            if (playOverlay) {
+                playOverlay.setAttribute('aria-hidden', 'false');
+                playOverlay.setAttribute('aria-pressed', 'false');
+            }
+        }
+        document.querySelector('.video-wrapper').setAttribute('aria-hidden', 'false');
         // fecha sidebar em mobile
         sidebar.classList.remove('open');
     };
+
+    // Ao clicar no overlay, definimos o src do iframe para carregar o vídeo (lazy + autoplay)
+    if (playOverlay) {
+        playOverlay.addEventListener('click', () => {
+            const src = video.dataset.src;
+            playOverlay.setAttribute('aria-pressed', 'true');
+            playOverlay.setAttribute('aria-hidden', 'true');
+            if (src) {
+                // autoplay quando houver fonte
+                video.src = src + '&autoplay=1';
+            } else {
+                // se não há vídeo configurado, abrir busca do YouTube para o título atual
+                const q = encodeURIComponent((titulo && titulo.innerText) || 'matemática');
+                window.open('https://www.youtube.com/results?search_query=' + q, '_blank', 'noopener');
+            }
+        });
+        // permitir ativação por Enter/Space
+        playOverlay.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                playOverlay.click();
+            }
+        });
+    }
 
     // Reclamações salvas no localStorage
     const STORAGE_KEY = 'reclamacoes';

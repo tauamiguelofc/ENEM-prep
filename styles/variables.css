@@ -1,0 +1,21 @@
+/* Variáveis de cor e transições */
+:root{
+  --bg: #f4f6f8;
+  --text: #111827;
+  --muted:#6b7280;
+  --primary:#0b69ff;
+  --accent:#0073e6;
+  --card:#ffffff;
+  --sidebar:#2f3136;
+  --shadow: 0 6px 18px rgba(2,6,23,0.08);
+  --transition-fast: 180ms ease;
+  --transition-medium: 300ms ease;
+}
+
+.dark-mode{
+  --bg:#0f1720;
+  --text:#e6eef8;
+  --muted:#9aa6b2;
+  --card:#0b1220;
+  --sidebar:#111316;
+}
