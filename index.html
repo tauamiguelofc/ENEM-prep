@@ -1,64 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso de Matemática</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Curso de Matemática — Preparação para Vestibular</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Matemática</h1>
-        <button id="themeToggle">🌙</button>
+    <header class="topbar">
+        <div class="brand">
+            <h1>ENEM Prep</h1>
+            <p class="tag">Matemática — Revisões e exercícios</p>
+        </div>
+
+        <div class="top-actions">
+            <button id="menuToggle" class="icon-btn" aria-label="Alternar menu">☰</button>
+            <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">🌙</button>
+        </div>
     </header>
 
-    <div class="container">
-        <aside class="sidebar">
-            <h3>Conteúdos</h3>
+    <aside class="sidebar" id="sidebar" aria-hidden="false">
+        <h3>Conteúdos</h3>
+        <nav>
             <ul>
-                <li onclick="carregarAula('raizes')">Raízes</li>
-                <li onclick="carregarAula('equacoes')">Equações</li>
-                <li onclick="carregarAula('algebra')">Álgebra</li>
-                <li onclick="carregarAula('somas')">Somas</li>
+                <li><button onclick="carregarAula('raizes')">Raízes Quadradas</button></li>
+                <li><button onclick="carregarAula('equacoes')">Equações</button></li>
+                <li><button onclick="carregarAula('algebra')">Álgebra</button></li>
+                <li><button onclick="carregarAula('somas')">Somas</button></li>
             </ul>
-        </aside>
+        </nav>
 
-        <main class="aula-container">
+        <div class="reclame-aqui">
+            <h4>Reclame Aqui</h4>
+            <form id="reclameForm">
+                <input type="text" id="nome" placeholder="Seu nome" required>
+                <textarea id="mensagem" placeholder="Sua reclamação / sugestão" rows="4" required></textarea>
+                <button type="submit" class="btn">Enviar</button>
+            </form>
+            <div id="listaReclamacoes" class="lista-reclamacoes" aria-live="polite"></div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <section class="aula">
             <h2 id="titulo-aula">Selecione um conteúdo</h2>
-            <iframe id="video-aula" src="" frameborder="0" allowfullscreen></iframe>
-            <p id="descricao-aula">Clique em um tópico para carregar o conteúdo.</p>
-            <a id="baixar-material" href="#" class="btn">Baixar Material</a>
 
-            <div class="comentarios">
-                <div id="disqus_thread"></div>
-                <div class="reclame-aqui">
-                    <h3>Reclame Aqui</h3>
-                    <form id="reclameForm">
-                        <input type="text" id="nome" placeholder="Seu Nome" required>
-                        <textarea id="mensagem" placeholder="Digite sua reclamação" required></textarea>
-                        <button type="submit">Enviar</button>
-                    </form>
-                </div>
+            <div class="video-wrapper" aria-hidden="true">
+                <iframe id="video-aula" src="" title="Player de vídeo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-        </main>
-    </div>
 
-    <footer>
-        <p>&copy; 2025 - Todos os direitos reservados.</p>
+            <p id="descricao-aula" class="descricao">Clique em um tópico na lateral para carregar a aula.</p>
+
+            <a id="baixar-material" href="#" class="btn download" download>Baixar material (PDF)</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 ENEM Prep — Conteúdo para estudo. Hospedado no GitHub Pages.</p>
     </footer>
 
-    <script src="script.js"></script>
-    <script>
-        var disqus_config = function () {
-            this.page.url = window.location.href;
-            this.page.identifier = "index";
-        };
-        (function() {
-            var d = document, s = d.createElement('script');
-            s.src = 'https://enem-prep.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
